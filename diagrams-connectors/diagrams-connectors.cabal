@@ -1,0 +1,74 @@
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 87dd7f14dc244e62a54c8df7f0a4e52d0710cb779d1eb06de3d51581f45103a0
+
+name:           diagrams-connectors
+version:        0.1.0.0
+synopsis:       connectors between rectangular elements in a diagram
+description:    Library for right-angle connectors
+                .
+                See <https://groups.google.com/forum/#!topic/diagrams-discuss/H1M-lwz9kvk Google Groups post> 
+author:         Karl Ostmo
+maintainer:     kostmo@gmail.com
+license:        Apache-2.0
+build-type:     Simple
+cabal-version:  >= 1.10
+
+library
+  hs-source-dirs:
+      src
+  ghc-options: -W -fwarn-tabs -fhpc
+  build-depends:
+      base
+    , colour
+    , containers
+    , data-ordlist
+    , diagrams-lib
+    , directory
+    , filepath
+    , hashable
+    , optparse-applicative
+    , palette
+    , random
+    , random-shuffle
+    , semigroups
+    , text
+    , unordered-containers
+  exposed-modules:
+      Diagrams.TwoD.OrthoConnect.BasicUtils
+      Diagrams.TwoD.OrthoConnect.ColorUtils
+      Diagrams.TwoD.OrthoConnect.Connectivity
+      Diagrams.TwoD.OrthoConnect.Coords
+      Diagrams.TwoD.OrthoConnect.Positioning
+      Diagrams.TwoD.OrthoConnect.RightAngleConnectors
+      Diagrams.TwoD.OrthoConnect.StraightBusConnectors
+      Diagrams.TwoD.OrthoConnect.Style
+  other-modules:
+      Paths_diagrams_connectors
+  default-language: Haskell2010
+
+test-suite test-connectors
+  type: exitcode-stdio-1.0
+  main-is: test-connectors.hs
+  hs-source-dirs:
+      test
+  ghc-options: -W -fwarn-tabs -threaded -with-rtsopts=-N
+  build-depends:
+      base
+    , containers
+    , diagrams-connectors
+    , diagrams-lib
+    , diagrams-svg
+    , directory
+    , filepath
+    , optparse-applicative
+    , random
+    , text
+    , unordered-containers
+  other-modules:
+      Command.ConnectorsDemo
+      Command.TestConnectors
+      Paths_diagrams_connectors
+  default-language: Haskell2010

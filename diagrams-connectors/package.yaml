@@ -1,0 +1,50 @@
+name: diagrams-connectors
+version: '0.1.0.0'
+synopsis: connectors between rectangular elements in a diagram
+description: ! 'Library for right-angle connectors
+
+
+See <https://groups.google.com/forum/#!topic/diagrams-discuss/H1M-lwz9kvk Google Groups post>
+'
+author: Karl Ostmo
+maintainer: kostmo@gmail.com
+license: Apache-2.0
+ghc-options:
+- -W
+- -fwarn-tabs
+dependencies:
+- base
+- directory
+- filepath
+- unordered-containers
+library:
+  source-dirs: src
+  ghc-options:
+  - -fhpc
+  dependencies:
+  - colour
+  - containers
+  - diagrams-lib
+  - hashable
+  - optparse-applicative
+  - palette
+  - text
+  - data-ordlist
+  - random
+  - random-shuffle
+  - semigroups
+tests:
+  test-connectors:
+    main: test-connectors.hs
+    source-dirs: test
+    ghc-options:
+    - -threaded
+    - -with-rtsopts=-N
+    dependencies:
+    - containers
+    - diagrams-connectors
+    - diagrams-lib
+    - diagrams-svg
+    - optparse-applicative
+    - random
+    - text
