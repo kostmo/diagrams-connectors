@@ -17,6 +17,10 @@ import qualified Diagrams.TwoD.OrthoConnect.Positioning as Positioning
 import qualified Diagrams.TwoD.OrthoConnect.Style       as Style
 
 
+dropshadowColor = gray
+dropshadowOpacity = 0.3
+
+
 -- | Draws with the builtin 'triangle' function, then positions and orients
 -- it along the segment defined by the two points.
 generateTriangleEndpoint :: (Monoid m, Semigroup m, TrailLike (QDiagram b V2 Double m)) =>
@@ -74,7 +78,7 @@ renderArrowTips
 -- and a dropshadow underneath with the specified offset
 drawWithShadow :: Semigroup m =>
      Kolor -- ^ foreground color
-  -> Kolor -- ^ connector color
+  -> Kolor -- ^ dropshadow color
   -> V (QDiagram b V2 Double m) (N (QDiagram b V2 Double m))
   -> QDiagram b V2 Double m -- ^ input diagram
   -> QDiagram b V2 Double m -- ^ output diagram
@@ -86,10 +90,12 @@ drawWithShadow
 
   input_diagram # apply_solid_color inner_color
     <> input_diagram
-        # apply_solid_color dropshadow_color
+        # apply_transparent_solid_color dropshadow_color
         # translate dropshadow_offset_vector
   where
     apply_solid_color x = fc x # lc x
+    apply_transparent_solid_color x = fcA (withOpacity x dropshadowOpacity)
+                                    # lcA (withOpacity x dropshadowOpacity)
 
 
 regenerateConnectorProps :: Semigroup m =>
@@ -130,7 +136,7 @@ renderConnector fixed_point_connection inner_color is_bidirectional =
 
   drawWithShadow
     inner_color
-    gray
+    dropshadowColor
     dropshadow_offset_vector
     connector_with_arrowheads
 
@@ -142,7 +148,7 @@ renderConnector fixed_point_connection inner_color is_bidirectional =
     origin_diagram = get_diagram origin_attachment_reference
     destination_diagram = get_diagram destination_attachment_reference
 
-    dropshadow_offset_distance = Style.triangleSideLength / 3
+    dropshadow_offset_distance = Style.triangleSideLength / 5
     dropshadow_offset_vector = scale dropshadow_offset_distance $ angleV $ -45 @@ deg
 
     connector_with_arrowheads = foreground_connector <> arrowheads
